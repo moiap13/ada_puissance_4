@@ -1,0 +1,7 @@
+Puissance 4 - procedure
+
+1) on récupère la colonnes dans laquelle on veut mettre le jeton
+2) on vérifie s'il y a deja des jetons dans la colonne 
+3) on vérifie la premiere position accessible
+4) on met le jeton a cette position
+5) on vérifie les 4 cases a côtés et on vérifie si c'est les mêmes que le dernier jetton inséré 
