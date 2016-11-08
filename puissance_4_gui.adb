@@ -1,10 +1,11 @@
 
 -- Clause de contexte: paquetages
-with Text_IO;                     use Text_IO;
-with Ada.Integer_Text_IO;         use Ada.Integer_Text_IO;
-with Ada.Float_Text_IO;           use Ada.Float_Text_IO;
-with Ada.Numerics.Float_Random;   use Ada.Numerics.Float_Random;
+with Text_IO;                     	use Text_IO;
+with Ada.Integer_Text_IO;         	use Ada.Integer_Text_IO;
+with Ada.Float_Text_IO;           	use Ada.Float_Text_IO;
+with Ada.Numerics.Float_Random;   	use Ada.Numerics.Float_Random;
 with Ada.Numerics.Generic_Elementary_Functions;
+--with pkg_ncurses;					use pkg_ncurses;
 
 procedure puissance_4_gui is  -- partie déclarative
    
@@ -63,23 +64,6 @@ procedure puissance_4_gui is  -- partie déclarative
 	  	end loop;
 	  	new_line;
 	end Put;
-
-	procedure game_during(game : in out boolean; t : in out  T_board) is
-		bool_tmp : boolean := false;
-	begin
-		for i in t'range(2) loop
-			if(t(0,i) = free) then
-				bool_tmp := true;
-			end if;
-		end loop;
-
-		if not bool_tmp then
-			Put_line("Toutes les cases du tableau ont été remplies");
-		end if;
-		
-		game := bool_tmp;
-	end game_during;
-
 
 	function neigbours(		tmp_direction_x, tmp_direction_y	: in integer; 
 							jeton_y                  			: in T_indice_line; 
@@ -226,7 +210,7 @@ procedure puissance_4_gui is  -- partie déclarative
 	  			exit;
 	  		end if;
 	  	end loop;
-
+	  	Put_line(integer'image(line));
   		t(line, col) := state;
   		check_win(line, col, t, state, b_win, nb_win);
   		Put(t);
@@ -239,6 +223,7 @@ procedure puissance_4_gui is  -- partie déclarative
 	begin
 		for col in t'range(2) loop
 			i := 0;
+			line := -1;
 			while t(i, col) = free loop
 		  		line := i;
 		  		i := i+1;
@@ -302,7 +287,6 @@ procedure puissance_4_gui is  -- partie déclarative
 
 			sort_array(count + 1, t);
 		end if;
-
 	end;
 
 	procedure show_array(a_all : T_array_all) is
@@ -372,7 +356,7 @@ procedure puissance_4_gui is  -- partie déclarative
 	b_win  		: boolean := false;
 	nb_win 		: positive := 4;
 	error  		: integer := 0;
-	b_ia   		: boolean := false;
+	--b_ia   		: boolean := false;
 	b_answer 	: boolean := false;
 	nb_players	: natural := 0;
 	col 		: integer := -1;
@@ -396,6 +380,8 @@ begin -- corps de la procédure principale
 		end if;
 	end loop;
 
+	--term_init;
+
 	for i in 0 .. 41 loop
 
 		if(not b_win) then
@@ -407,7 +393,7 @@ begin -- corps de la procédure principale
 		   		while col = -1 loop
 
 		   			if error > -1 then
-						Put("Veuillez entrer la colonne dans laquelle vous voulez insérer votre jeton : ");
+						Put("Veuillez entrer la colonne dans laquelle vous voulez insérer votre jeton [0-6]: ");
 					end if;
 
 					Get(col);
